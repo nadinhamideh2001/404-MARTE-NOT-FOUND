@@ -61,7 +61,6 @@ La experiencia fusiona **narrativa lúdica + estética computacional retro**, ev
 
 Basado en la estética de las interfaces espaciales retro con tipografía monoespaciada y colores brillantes sobre fondo negro, inspirados en sistemas de control antiguos y pantallas de misión.
 
-![Referencia visual](file:///mnt/data/Screenshot%202025-11-19%20at%206.32.43%E2%80%AFPM.png)
 
 ---
 
