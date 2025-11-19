@@ -6,84 +6,149 @@
     <title>Marte Not Found — 404</title>
 
     <style>
+      /* === Reset & base === */
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+
+      html,
       body {
-        background: #0b0d10;
-        font-family: "Space Grotesk", sans-serif;
+        height: 100%;
+      }
+
+      body {
+        background: #02040a;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
+        padding: 16px;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
+      /* === Card principal === */
       .poster {
-        background: #bfbfbf;
+        background: #0c0f18;
         border-radius: 20px;
-        padding: 40px;
-        max-width: 700px;
-        width: 90%;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        padding: 40px 36px 42px;
+        max-width: 780px;
+        width: 100%;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
         text-align: center;
         position: relative;
         z-index: 2;
+        border: 1px solid rgba(124, 255, 107, 0.25);
       }
 
       h1 {
         font-family: monospace;
-        font-size: clamp(16px, 2.2vw, 22px);
-        line-height: 1.8;
+        font-size: clamp(16px, 2.4vw, 22px);
+        line-height: 1.7;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        margin-bottom: 30px;
+        margin-bottom: 12px;
+        color: #7cff6b;
+        text-shadow: 0 0 8px rgba(124, 255, 107, 0.9);
       }
-
       h1 span {
-        color: #ff4a38;
+        color: #ffffff;
       }
 
+      .tagline {
+        font-size: 14px;
+        opacity: 0.85;
+        margin-bottom: 24px;
+      }
+
+      /* === Ventana / consola === */
       .window {
-        background: #000;
+        background: #020308;
         border-radius: 10px;
-        height: 300px;
+        height: 320px;
         position: relative;
         overflow: hidden;
+        border: 1px solid rgba(124, 255, 107, 0.4);
+        box-shadow: 0 0 18px rgba(124, 255, 107, 0.3) inset;
+      }
+
+      .console {
+        position: absolute;
+        inset: 18px 20px auto 20px;
+        text-align: left;
+        font-family: monospace;
+        font-size: 12px;
+        color: #7cff6b;
+        line-height: 1.5;
+        text-shadow: 0 0 6px rgba(124, 255, 107, 0.9);
+        max-height: 110px;
+        overflow: hidden;
+      }
+
+      .console-line + .console-line {
+        margin-top: 3px;
+      }
+
+      .console-tag {
+        text-transform: uppercase;
+        letter-spacing: 2px;
       }
 
       .pixel-404 {
         position: absolute;
-        top: 50%;
+        bottom: 95px;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         font-family: monospace;
-        font-size: clamp(24px, 4vw, 36px);
-        color: #fff;
-        text-shadow: 0 0 8px rgba(255, 74, 56, 0.8);
+        font-size: clamp(20px, 3.4vw, 30px);
+        color: #7cff6b;
+        text-shadow: 0 0 10px rgba(124, 255, 107, 1);
+        text-align: center;
+        padding: 0 12px;
       }
 
       .portal {
         position: absolute;
-        left: 5%;
-        right: 5%;
-        bottom: 15%;
-        height: 25%;
-        border-radius: 50%/45%;
-        background: linear-gradient(180deg, #b6ffbd, #8cc0ff, #8746b9, #ff4a38);
-        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+        left: 8%;
+        right: 8%;
+        bottom: 14%;
+        height: 26%;
+        border-radius: 50% / 46%;
+        background: radial-gradient(
+            circle at 30% 20%,
+            rgba(255, 255, 255, 0.7),
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            #7cff6b 0%,
+            #4fc4ff 40%,
+            #8746b9 70%,
+            #ff4a38 100%
+          );
+        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.8));
       }
 
       canvas#game {
-        margin-top: 25px;
+        margin-top: 26px;
         width: 100%;
         height: 140px;
-        background: #cfcfcf;
+        background: #05060c;
         border-radius: 10px;
         display: block;
+        border: 1px solid rgba(124, 255, 107, 0.4);
+        box-shadow: 0 0 16px rgba(124, 255, 107, 0.25) inset;
+      }
+
+      .hint {
+        margin-top: 10px;
+        font-size: 12px;
+        opacity: 0.8;
       }
 
       canvas#space {
@@ -92,25 +157,135 @@
         z-index: 1;
         pointer-events: none;
       }
+
+      /* ===== RESPONSIVE FIXES ===== */
+
+      @media (max-width: 768px) {
+        body {
+          padding: 12px;
+        }
+
+        .poster {
+          padding: 28px 20px 30px;
+        }
+
+        .window {
+          height: 260px;
+        }
+
+        .console {
+          font-size: 11px;
+          inset: 10px 12px auto 12px;
+          max-height: 95px;
+        }
+
+        .pixel-404 {
+          bottom: 78px;
+          font-size: 20px;
+        }
+
+        .portal {
+          bottom: 8%;
+          height: 22%;
+        }
+
+        canvas#game {
+          height: 120px !important;
+          margin-top: 34px !important;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .poster {
+          padding: 24px 16px 26px;
+        }
+
+        .window {
+          height: 220px;
+        }
+
+        .console {
+          font-size: 10px;
+          max-height: 80px;
+        }
+
+        .pixel-404 {
+          bottom: 65px;
+          font-size: 17px;
+        }
+
+        .portal {
+          bottom: 10%;
+          height: 20%;
+        }
+
+        canvas#game {
+          height: 110px !important;
+          margin-top: 40px !important;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .window {
+          height: 190px;
+        }
+
+        .console {
+          font-size: 9px;
+          max-height: 70px;
+        }
+
+        .pixel-404 {
+          bottom: 52px;
+          font-size: 14px;
+        }
+
+        canvas#game {
+          height: 100px !important;
+          margin-top: 45px !important;
+        }
+      }
     </style>
   </head>
 
   <body>
     <main class="poster">
-      <h1>Ni <span>ChatGPT</span><br />encontró vida<br />en Marte</h1>
+      <h1>
+        Ni <span>ChatGPT</span> encontró vida<br />
+        en Marte
+      </h1>
+      <p class="tagline">
+        Ayuda a la IA a esquivar errores 404 y seguir escaneando el planeta.
+      </p>
 
       <div class="window">
-        <div class="pixel-404">ERROR 404</div>
+        <div class="console">
+          <p class="console-line console-tag">[LOG_404_TO_MARS]</p>
+          <p class="console-line">
+            Houston, la señal con Marte se ha perdido. El planeta no aparece en
+            el sistema.
+          </p>
+          <p class="console-line">
+            ChatGPT ha tomado el control del escáner para buscar vida
+            inteligente.
+          </p>
+          <p class="console-line">
+            Tu misión: esquivar los glitches 404 y mantener la búsqueda activa.
+          </p>
+        </div>
+
+        <div class="pixel-404">ERROR 404: MARS NOT FOUND</div>
         <div class="portal"></div>
       </div>
 
       <canvas id="game"></canvas>
+      <p class="hint">Pulsa <b>Space</b> o toca la pantalla para saltar.</p>
     </main>
 
     <canvas id="space"></canvas>
 
     <script>
-      // === Fondo de estrellas ===
+      /* === Estrellas === */
       const bg = document.getElementById("space");
       const bctx = bg.getContext("2d");
       let stars = [];
@@ -118,17 +293,17 @@
       function resizeStars() {
         bg.width = innerWidth;
         bg.height = innerHeight;
-        stars = Array.from({ length: 150 }, () => ({
+        stars = Array.from({ length: 160 }, () => ({
           x: Math.random() * innerWidth,
           y: Math.random() * innerHeight,
           r: Math.random() * 1.5 + 0.3,
-          s: Math.random() * 0.7 + 0.2,
+          s: Math.random() * 0.6 + 0.2,
         }));
       }
 
       function drawStars() {
         bctx.clearRect(0, 0, innerWidth, innerHeight);
-        bctx.fillStyle = "white";
+        bctx.fillStyle = "#ffffff";
         for (const s of stars) {
           bctx.beginPath();
           bctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
@@ -143,7 +318,7 @@
       drawStars();
       addEventListener("resize", resizeStars);
 
-      // === Minijuego ===
+      /* === Minijuego === */
       const canvas = document.getElementById("game");
       const ctx = canvas.getContext("2d");
 
@@ -154,17 +329,29 @@
       resizeGame();
       addEventListener("resize", resizeGame);
 
-      const player = { x: 30, y: 60, vy: 0, w: 26, h: 32, onGround: true };
-      const state = { speed: 2.3, gravity: 0.45, tick: 0, running: true };
-      let obstacles = [];
+      const player = {
+        x: 40,
+        y: 60,
+        vy: 0,
+        w: 30,
+        h: 30,
+        onGround: true,
+      };
 
-      function spawn() {
-        const gap = 110 + Math.random() * 40;
-        const last = obstacles.length
-          ? obstacles[obstacles.length - 1].x
+      const state = { speed: 2.1, gravity: 0.5, tick: 0, running: true };
+      let glitches = [];
+
+      function spawnGlitch() {
+        const gap = 120 + Math.random() * 60;
+        const last = glitches.length
+          ? glitches[glitches.length - 1].x
           : canvas.width;
-        const h = 18 + Math.random() * 20;
-        obstacles.push({ x: last + gap, w: 16 + Math.random() * 10, h });
+        const h = 18 + Math.random() * 24;
+        glitches.push({
+          x: last + gap,
+          w: 18 + Math.random() * 12,
+          h,
+        });
       }
 
       function jump() {
@@ -173,32 +360,42 @@
           player.onGround = false;
         }
       }
-      addEventListener("keydown", (e) => e.code === "Space" && jump());
+
+      addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          e.preventDefault();
+          jump();
+        }
+      });
+
       canvas.addEventListener("pointerdown", jump);
 
       function update() {
         if (!state.running) return;
         state.tick++;
-        if (state.tick % 65 === 0) spawn();
+
+        if (state.tick % 70 === 0) spawnGlitch();
 
         player.vy += state.gravity;
         player.y += player.vy;
-        const ground = canvas.height - 10;
+
+        const ground = canvas.height - 14;
         if (player.y + player.h >= ground) {
           player.y = ground - player.h;
           player.vy = 0;
           player.onGround = true;
         }
 
-        for (const o of obstacles) o.x -= state.speed;
-        obstacles = obstacles.filter((o) => o.x + o.w > 0);
-        state.speed += 0.0004;
+        for (const g of glitches) g.x -= state.speed;
+        glitches = glitches.filter((g) => g.x + g.w > 0);
 
-        for (const o of obstacles) {
+        state.speed += 0.0003;
+
+        for (const g of glitches) {
           if (
-            player.x < o.x + o.w &&
-            player.x + player.w > o.x &&
-            player.y + player.h > canvas.height - o.h
+            player.x < g.x + g.w &&
+            player.x + player.w > g.x &&
+            player.y + player.h > canvas.height - g.h - 14
           ) {
             gameOver();
           }
@@ -208,16 +405,32 @@
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const h = canvas.height;
-        ctx.fillStyle = "#aaa";
+
+        ctx.fillStyle = "#181b23";
         ctx.fillRect(0, h - 8, canvas.width, 8);
-        ctx.fillStyle = "#555";
-        for (const o of obstacles) ctx.fillRect(o.x, h - o.h - 8, o.w, o.h);
-        ctx.fillStyle = "#fff";
+
+        ctx.fillStyle = "rgba(124,255,107,0.9)";
+        for (const g of glitches) {
+          ctx.fillRect(g.x, h - g.h - 8, g.w, g.h);
+        }
+
+        const x = player.x;
+        const y = player.y;
+        ctx.save();
+        ctx.translate(x + 15, y + 15);
+        ctx.fillStyle = "rgba(124,255,107,0.25)";
         ctx.beginPath();
-        ctx.arc(player.x + 12, player.y + 10, 10, 0, Math.PI * 2);
+        ctx.arc(0, 0, 18, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = "#ff4a38";
-        ctx.fillRect(player.x + 4, player.y + 26, 16, 4);
+        ctx.fillStyle = "#7cff6b";
+        ctx.beginPath();
+        ctx.arc(0, 0, 11, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(-4, -4, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
 
       function loop() {
@@ -228,30 +441,36 @@
 
       function gameOver() {
         state.running = false;
-        ctx.fillStyle = "rgba(0,0,0,0.6)";
+        ctx.fillStyle = "rgba(0,0,0,0.7)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#fff";
+        ctx.fillStyle = "#7cff6b";
         ctx.textAlign = "center";
         ctx.font = "14px monospace";
-        ctx.fillText("404 NOT FOUND", canvas.width / 2, canvas.height / 2 - 10);
         ctx.fillText(
-          "Click o Space para reiniciar",
+          "ChatGPT perdió la señal con Marte.",
           canvas.width / 2,
-          canvas.height / 2 + 15
+          canvas.height / 2 - 8
+        );
+        ctx.fillText(
+          "Click o Space para reintentar el escaneo.",
+          canvas.width / 2,
+          canvas.height / 2 + 14
         );
 
         function restart() {
           state.running = true;
-          state.speed = 2.3;
-          obstacles = [];
+          state.speed = 2.1;
+          glitches = [];
           player.y = 60;
           player.vy = 0;
           removeEventListener("keydown", onKey);
           canvas.removeEventListener("pointerdown", restart);
         }
+
         function onKey(e) {
           if (e.code === "Space") restart();
         }
+
         addEventListener("keydown", onKey);
         canvas.addEventListener("pointerdown", restart);
       }
